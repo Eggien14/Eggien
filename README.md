@@ -1,4 +1,4 @@
-# iot_app
+# firewise_app
 
 A new Flutter project.
 

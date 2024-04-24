@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:iot_app/services/realtime_firebase.dart';
+import 'package:firewise_app/services/realtime_firebase.dart';
 import 'package:gauge_indicator/gauge_indicator.dart';
 
 class IoTGaugeMulti extends StatefulWidget {
   final String virtualPin;
   final String name;
-  final String meter; 
+  final String meter;
   final double max;
   final double min;
-  
 
   const IoTGaugeMulti({
     Key? key,
     required this.virtualPin,
     required this.name,
     required this.max,
-    required this.min, required this.meter,
+    required this.min,
+    required this.meter,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class IoTGaugeMulti extends StatefulWidget {
 class _IoTGaugeMultiState extends State<IoTGaugeMulti> {
   double _value = 0.0; // Initial value
   late Stream<String> _gauge;
-  String data="";
+  String data = "";
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _IoTGaugeMultiState extends State<IoTGaugeMulti> {
       _gauge.listen((value) {
         setState(() {
           _value = double.parse(value);
-          data = widget.name + ":"+ _value.toString() + widget.meter;
+          data = widget.name + ":" + _value.toString() + widget.meter;
         });
       });
     });

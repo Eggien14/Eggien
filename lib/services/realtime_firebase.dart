@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:iot_app/models/users.dart';
-import 'package:iot_app/utils/data_user.dart';
+import 'package:firewise_app/models/users.dart';
+import 'package:firewise_app/utils/data_user.dart';
 
 class DataFirebase {
-  // get string data to 
+  // get string data to
   Future<String> getData(String virtualPin) async {
     try {
       Users user = await FetchUserData.getDataUser();
@@ -36,6 +36,7 @@ class DataFirebase {
       return false;
     }
   }
+
   Future<Stream<String>> getStream(String virtualPin) async {
     StreamController<String> controller = StreamController<String>();
     try {

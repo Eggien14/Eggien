@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:iot_app/widgets/Notice/notice_snackbar.dart';
 
 class BluetoothService {
   Future<bool> turnOnBluetooth() async {
     if (await FlutterBluePlus.isSupported == false) {
-      const CustomSnackBar(
-          message: "Bluetooth not supported by this device ", seconds: 3);
+      //Bluetooth not supported by this device
+
       return false;
     }
     bool ok = false;
@@ -19,7 +18,7 @@ class BluetoothService {
         // start scanning, connecting
         ok = true;
       } else {
-        const CustomSnackBar(message: "Cannot turn on bluetooth", seconds: 3);
+        //"Cannot turn on bluetooth"
       }
     });
     // turn on bluetooth ourself if we can

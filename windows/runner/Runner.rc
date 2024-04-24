@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "iot_app" "\0"
+            VALUE "CompanyName", "com.firewise" "\0"
+            VALUE "FileDescription", "firewise_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "iot_app" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "iot_app.exe" "\0"
-            VALUE "ProductName", "iot_app" "\0"
+            VALUE "InternalName", "firewise_app" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.firewise. All rights reserved." "\0"
+            VALUE "OriginalFilename", "firewise_app.exe" "\0"
+            VALUE "ProductName", "firewise_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

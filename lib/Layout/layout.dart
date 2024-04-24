@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iot_app/screen/home.dart';
-import 'package:iot_app/screen/news.dart';
-import 'package:iot_app/screen/profile.dart';
-
+import 'package:firewise_app/screen/home.dart';
+import 'package:firewise_app/screen/news.dart';
+import 'package:firewise_app/screen/profile.dart';
 
 class Layout extends StatefulWidget {
   @override

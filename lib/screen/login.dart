@@ -1,20 +1,20 @@
 // ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api, camel_case_types
 
 import 'package:flutter/material.dart';
-import 'package:iot_app/Layout/layout.dart';
-import 'package:iot_app/models/users.dart';
-import 'package:iot_app/screen/register.dart';
-import 'package:iot_app/services/auth_firebase.dart';
-import 'package:iot_app/utils/data_user.dart';
-import 'package:iot_app/utils/user_provider.dart';
-import 'package:iot_app/widgets/Button/button_form.dart';
-import 'package:iot_app/widgets/Button/button_social.dart';
-import 'package:iot_app/widgets/Notice/notice_snackbar.dart';
-import 'package:iot_app/widgets/Text/text_button.dart';
-import 'package:iot_app/widgets/Text/text_field.dart';
-import 'package:iot_app/widgets/Text/text_title.dart';
+import 'package:firewise_app/Layout/layout.dart';
+import 'package:firewise_app/models/users.dart';
+import 'package:firewise_app/screen/register.dart';
+import 'package:firewise_app/services/auth_firebase.dart';
+import 'package:firewise_app/utils/data_user.dart';
+import 'package:firewise_app/utils/user_provider.dart';
+import 'package:firewise_app/widgets/Button/button_form.dart';
+import 'package:firewise_app/widgets/Button/button_social.dart';
+import 'package:firewise_app/widgets/Text/text_button.dart';
+import 'package:firewise_app/widgets/Text/text_field.dart';
+import 'package:firewise_app/widgets/Text/text_title.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:the_country_number_widgets/the_country_number_widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,21 +24,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _loginScreenState extends State<LoginScreen> {
-  late TextEditingController _emailEditingController;
+  late String _phone;
   late TextEditingController _passwordEditingController;
   String? storedData;
-
   @override
   void initState() {
     super.initState();
-    _emailEditingController = TextEditingController();
+
     _passwordEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
     // Clean up the controllers when the widget is disposed
-    _emailEditingController.dispose();
     _passwordEditingController.dispose();
     super.dispose();
   }
@@ -47,6 +45,7 @@ class _loginScreenState extends State<LoginScreen> {
   @override
   Widget build(Object context) {
     final _formKey = GlobalKey<FormState>();
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         backgroundColor: Color.fromRGBO(247, 248, 250, 1),
@@ -60,7 +59,10 @@ class _loginScreenState extends State<LoginScreen> {
               const SizedBox(
                 width: 150,
                 height: 50,
-                child: TitleTextWidget(text: "Login"),
+                child: TitleTextWidget(
+                  text: "Login",
+                  color: Colors.black,
+                ),
               ),
               const SizedBox(
                 height: 100,
@@ -75,16 +77,24 @@ class _loginScreenState extends State<LoginScreen> {
                           key: _formKey,
                           child: Column(
                             children: [
-                              TextFieldtWidget(
-                                labelText: "Email",
-                                textEditingController: _emailEditingController,
-                                icon: Icons.email_outlined,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter your email';
+                              TheCountryNumberInput(    
+                                                            
+                                TheCountryNumber().parseNumber(iso2Code: "VN"),
+                                onChanged: (tn) {
+                                  _phone = tn.number;
+                                },
+                                //custom validation
+                                customValidator: (tn) {
+                                  final enteredNumber = tn.number;
+                                  //do something
+                                  String rs =
+                                      validatePhoneNumber(enteredNumber);
+                                  if (rs != '') {
+                                    return rs;
                                   }
                                   return null;
                                 },
+                                showDialCode: true,
                               ),
                               const SizedBox(
                                 height: 10,
@@ -164,23 +174,25 @@ class _loginScreenState extends State<LoginScreen> {
 
   void _login() async {
     try {
-      String email = _emailEditingController.text;
+      String phone = _phone;
       String password = _passwordEditingController.text;
-      Users user = await _auth.loginUser(email, password);
-      // save in SharedPreferences
+      Users user = await _auth.loginUser(phone, password);
+      // save user info in SharedPreferences
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('userID', user.userID);
       prefs.setString('username', user.username); // Changed key to 'username'
-      prefs.setString('email', user.email);
+      prefs.setString('phone', user.phone);
       prefs.setString('address', user.address);
       prefs.setString('image', user.image);
+      prefs.setString('deviceID', user.deviceID);
       // update user into provider
       Provider.of<UserProvider>(context, listen: false).updateUser(user);
       // Fetch stored data after saving
       if (await FetchUserData.setDataUser(user)) {
         print("Log in successfully");
-        const CustomSnackBar(
-            message: "Login successfully", seconds: 3); // message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Login Successfully')),
+        );
 
         //go ahead
         Navigator.pop(context);
@@ -191,7 +203,17 @@ class _loginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       print(e.toString());
-      const CustomSnackBar(message: "Login fail, Try again !", seconds: 3);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login fail, Try again!')),
+      );
     }
+  }
+
+  String validatePhoneNumber(String number) {
+    final numbericRegex = RegExp(r'^[0-9]+$');
+    if (number.isEmpty) return 'Please enter a phone number';
+    if (!numbericRegex.hasMatch(number))
+      return 'Please enter a valid phone number';
+    return '';
   }
 }

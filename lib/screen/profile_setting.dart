@@ -1,12 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:iot_app/Layout/layout.dart';
-import 'package:iot_app/models/users.dart';
-import 'package:iot_app/services/auth_firebase.dart';
-import 'package:iot_app/utils/data_user.dart';
-import 'package:iot_app/utils/image_picker.dart';
-import 'package:iot_app/widgets/Notice/notice_snackbar.dart';
+import 'package:firewise_app/Layout/layout.dart';
+import 'package:firewise_app/models/users.dart';
+import 'package:firewise_app/services/auth_firebase.dart';
+import 'package:firewise_app/utils/data_user.dart';
+import 'package:firewise_app/utils/image_picker.dart';
 
 class ProfileSetting extends StatefulWidget {
   const ProfileSetting({Key? key}) : super(key: key);
@@ -69,7 +68,8 @@ class _ProfileSettingState extends State<ProfileSetting> {
                   children: [
                     CircleAvatar(
                       radius: 60,
-                      backgroundImage:_image.isNotEmpty ? FileImage(File(_image)) : null,
+                      backgroundImage:
+                          _image.isNotEmpty ? FileImage(File(_image)) : null,
                     ),
                     Positioned(
                       bottom: 0,
@@ -139,7 +139,9 @@ class _ProfileSettingState extends State<ProfileSetting> {
         print("FetchUserData.setDataUser fail");
       }
     } else {
-      CustomSnackBar(message: "Update user fail", seconds: 3);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Update user fail, Try again!')),
+      );
     }
   }
 
@@ -150,14 +152,13 @@ class _ProfileSettingState extends State<ProfileSetting> {
     _addressController.dispose();
     super.dispose();
   }
-  
-  void _imagePicker() async {
-  final pickedFile = await pickImage();
-  if (pickedFile != null) {
-    setState(() {
-      _image = pickedFile.path;
-    });
-  }
-}
 
+  void _imagePicker() async {
+    final pickedFile = await pickImage();
+    if (pickedFile != null) {
+      setState(() {
+        _image = pickedFile.path;
+      });
+    }
+  }
 }

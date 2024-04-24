@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iot_app/models/users.dart';
-import 'package:iot_app/utils/data_user.dart';
-import 'package:iot_app/utils/user_provider.dart';
-import 'package:iot_app/widgets/IoT/gauge.dart';
-import 'package:iot_app/widgets/IoT/gauge_mult.dart';
-import 'package:iot_app/widgets/IoT/switch.dart';
+import 'package:firewise_app/models/users.dart';
+import 'package:firewise_app/utils/data_user.dart';
+import 'package:firewise_app/utils/user_provider.dart';
+import 'package:firewise_app/widgets/IoT/gauge.dart';
+import 'package:firewise_app/widgets/IoT/gauge_mult.dart';
+import 'package:firewise_app/widgets/IoT/switch.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.all(40),
             child: Column(
               children: [
-
                 GridView.count(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
@@ -74,9 +73,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSpacing: 10, // Khoảng cách giữa các hàng
                   padding: const EdgeInsets.only(bottom: 180),
                   children: [
-                    IoTGaugeMulti(virtualPin: "V1", name: "Temperature", max: 100, min: 0,meter: "*C",),
-                
-                    IoTGauge(virtualPin: "V2", name: "Huminity", max: 100, min: 0,meter: "%",color: Colors.blueAccent,),                
+                    IoTGaugeMulti(
+                      virtualPin: "V1",
+                      name: "Temperature",
+                      max: 100,
+                      min: 0,
+                      meter: "*C",
+                    ),
+                    IoTGauge(
+                      virtualPin: "V2",
+                      name: "Huminity",
+                      max: 100,
+                      min: 0,
+                      meter: "%",
+                      color: Colors.blueAccent,
+                    ),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: IoTSwitch(

@@ -1,4 +1,4 @@
-import 'package:iot_app/models/users.dart';
+import 'package:firewise_app/models/users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FetchUserData {
@@ -16,20 +16,24 @@ class FetchUserData {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userId = prefs.getString('userID');
     String? userName = prefs.getString('userName');
-    String? email = prefs.getString('email');
+    String? phone = prefs.getString('phone');
     String? address = prefs.getString('address');
     String? image = prefs.getString('image');
+    String? deviceID = prefs.getString('deviceID');
     if (userId != null &&
         userName != null &&
-        email != null &&
+        phone != null &&
         address != null &&
-        image != null) {
+        image != null &&
+        deviceID != null) {
       return Users.sharedPreferences(
-          userID: userId,
-          username: userName,
-          email: email,
-          address: address,
-          image: image);
+        userID: userId,
+        username: userName,
+        phone: phone,
+        address: address,
+        image: image,
+        deviceID: deviceID,
+      );
     } else {
       throw Exception("Failed to fetch user data from SharedPreferences");
     }
@@ -40,27 +44,10 @@ class FetchUserData {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('userID', user.userID);
       prefs.setString('userName', user.username);
-      prefs.setString('email', user.email);
+      prefs.setString('deviceID', user.deviceID);
       prefs.setString('address', user.address);
       prefs.setString('image', user.image);
-      return true;
-    } catch (e) {
-      print(e.toString());
-      return false;
-    }
-  }
-  static Future<void> clearData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
-  }
-  static Future<bool> clearDataUser() async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('userID', "");
-      prefs.setString('userName', "");
-      prefs.setString('email', "");
-      prefs.setString('address', "");
-      prefs.setString('image', "");
+      prefs.setString('phone', user.phone);
       return true;
     } catch (e) {
       print(e.toString());
@@ -68,4 +55,25 @@ class FetchUserData {
     }
   }
 
+  static Future<void> clearData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  static Future<bool> clearDataUser() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('userID', "");
+      prefs.setString('userName', "");
+      prefs.setString('phone', "");
+      prefs.setString('address', "");
+      prefs.setString('image', "");
+      prefs.setString('deviceID', "");
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

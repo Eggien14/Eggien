@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:iot_app/services/realtime_firebase.dart';
+import 'package:firewise_app/services/realtime_firebase.dart';
 import 'package:gauge_indicator/gauge_indicator.dart';
 
 class IoTGauge extends StatefulWidget {
@@ -13,13 +13,14 @@ class IoTGauge extends StatefulWidget {
   final double min;
   final Color color;
 
-
   const IoTGauge({
     Key? key,
     required this.virtualPin,
     required this.name,
     required this.max,
-    required this.min, required this.meter, required this.color,
+    required this.min,
+    required this.meter,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -29,14 +30,14 @@ class IoTGauge extends StatefulWidget {
 class _IoTGaugeState extends State<IoTGauge> {
   late double _value;
   late Stream<String> _gauge;
-  String dataDisplay="";
+  String dataDisplay = "";
 
   @override
   void initState() {
     super.initState();
-    _value = 0.0; 
+    _value = 0.0;
     _startListeningToFirebase();
-    dataDisplay= widget.name+" : "+_value.toString()+"%";
+    dataDisplay = widget.name + " : " + _value.toString() + "%";
   }
 
   // Phương thức để lắng nghe dữ liệu từ Firebase
@@ -48,7 +49,7 @@ class _IoTGaugeState extends State<IoTGauge> {
       _gauge.listen((value) {
         setState(() {
           _value = double.parse(value);
-          dataDisplay= widget.name+" : "+_value.toString()+widget.meter;
+          dataDisplay = widget.name + " : " + _value.toString() + widget.meter;
         });
       });
     });

@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:iot_app/models/users.dart';
-import 'package:iot_app/screen/profile_setting.dart';
-import 'package:iot_app/screen/wellcome.dart';
-import 'package:iot_app/utils/data_user.dart';
+import 'package:firewise_app/models/users.dart';
+import 'package:firewise_app/screen/profile_setting.dart';
+import 'package:firewise_app/screen/wellcome.dart';
+import 'package:firewise_app/utils/data_user.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -72,7 +72,7 @@ class _profileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 10),
               Text(
-                user.email,
+                user.phone,
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
               const SizedBox(height: 10),
@@ -83,8 +83,10 @@ class _profileScreenState extends State<ProfileScreen> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => ProfileSetting()));
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProfileSetting()));
                 },
                 child: const Text("Edit Profile"),
                 style: ElevatedButton.styleFrom(
@@ -109,10 +111,10 @@ class _profileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-  
+
   void _logout() {
     FetchUserData.clearDataUser();
-    Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (context) => WellcomeScreen()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => WellcomeScreen()));
   }
 }
