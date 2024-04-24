@@ -1,6 +1,3 @@
-Sure, here's a README file written in English for your firewise_app:
-
----
 
 # firewise_app
 
