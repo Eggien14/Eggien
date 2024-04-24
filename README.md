@@ -24,24 +24,19 @@ Before getting started, ensure you have the following installed:
    git clone https://github.com/Eggien14/FireWiseTech.git
    ```
 
-2. **Download google-services.json from Firebase**
-   - Access [Firebase Console](https://console.firebase.google.com/project/fire-wise-tech/settings/general/android:com.firewise.firewise_app) using the account registered to join the **firewise tech** project.
-   - In Firebase console -> Project Setting -> Your App, download the file `google-services.json`.
-   - Once downloaded, move `google-services.json` into the `android/app` folder of this project.
-
-3. **Navigate to the project directory**
+2. **Navigate to the project directory**
 
    ```bash
    cd firewise_app
    ```
 
-4. **Install dependencies**
+3. **Install dependencies**
 
    ```bash
    flutter pub get
    ```
 
-5. **Run the app on an emulator or physical device**
+4. **Run the app on an emulator or physical device**
 
    ```bash
    flutter run
