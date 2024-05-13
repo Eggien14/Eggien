@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:iot_app/constants/properties.dart';
 import 'package:iot_app/models/users.dart';
@@ -34,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> listIdDevice = [];
   List<Widget> widgetsList = [];
   List<Widgets> listWidgets = [];
-  List<DraggableGridItem> draggableItems = [];
 
   @override
   void initState() {
@@ -47,12 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       listWidgets = await FetchWidgetData.loadWidgets();
       widgetsList = toListWidget(listWidgets);
-      draggableItems = widgetsList.map((widget) {
-        return DraggableGridItem(
-          //index: widgetsList.indexOf(widget),
-          child: widget,
-        );
-      }).toList();
     } catch (e) {
       throw e;
     }
@@ -100,14 +92,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSpacing: 10, // Khoảng cách giữa các hàng
                   padding: const EdgeInsets.only(bottom: 180),
                   children: [
-                    const IoTGaugeMulti(
+                     IoTGaugeMulti(
                       virtualPin: "V1",
                       name: "Temperature",
                       max: 100,
                       min: 0,
                       meter: "*C",
                     ),
-                    const IoTGauge(
+                    IoTGauge(
                       virtualPin: "V2",
                       name: "Huminity",
                       max: 100,
@@ -115,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       meter: "%",
                       color: Colors.blueAccent,
                     ),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.all(10),
                       child: IoTSwitch(
                         virtualPin: "A1",
@@ -123,7 +115,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         colorSwitch: Colors.yellow,
                       ),
                     ),
-                    ...widgetsList,
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: IoTSwitch(
+                        virtualPin: "A2",
+                        nameSwitch: "Light Blue",
+                        colorSwitch: Colors.blue,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: IoTSwitch(
+                        virtualPin: "A3",
+                        nameSwitch: "Light Green",
+                        colorSwitch: Colors.green,
+                      ),
+                    ),
+                    //...widgetsList,
                   ],
                 ),
                 // DraggableGridViewBuilder(

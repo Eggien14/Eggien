@@ -278,14 +278,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.32.1"
-  flutter_draggable_gridview:
-    dependency: "direct main"
-    description:
-      name: flutter_draggable_gridview
-      sha256: "558747591fc3fccb1ecf97f8f540a160b1712b4ab12d57f3ce961d1190487164"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.0.12"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -320,6 +312,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_webview_plugin:
+    dependency: "direct main"
+    description:
+      name: flutter_webview_plugin
+      sha256: ec410b10822b06432e11f9680b319609d6f34bcdabb31fcc4990ac8a2aaf9ff0
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.0"
   gauge_indicator:
     dependency: "direct main"
     description:
